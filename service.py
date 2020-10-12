@@ -1,7 +1,9 @@
+# -*- coding: utf-8 -*-
 import json
 
-def lambda_handler(event, context):
-    # TODO implement
+
+def handler(event, context):
+    # Your code goes here!
     print(event)
     if 'queryStringParameters' in event:
         print(event['queryStringParameters'])
