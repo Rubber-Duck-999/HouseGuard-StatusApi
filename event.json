@@ -7,9 +7,10 @@
   "region": "us-east-1",
   "resources": ["arn:aws:events:us-east-1:123456789012:rule/ExampleRule"],
   "queryStringParameters": {
-    "status": {
+    "status_request": {
         "state": "on"
     }
   },
+  "httpMethod": "GET",
   "detail": {}
 }

@@ -3,13 +3,15 @@ import logging
 
 class Access_Db():
 
-    def __init__(self, status):
+    status = "{}"
+    status_type   = "latest"
+
+    def __init__(self):
+        print("Creation")
+
+    def createStatus(self, status):
         self.status = status
-        if self.status is None:
-            raise ValueError("Status has not been given")
-        
-    def putStatus(self):
         print("Creating record in db")
 
-    def getStatus(self):
+    def getStatus(self, status_request):
         print("Creating query for getting status record")
