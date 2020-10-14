@@ -36,8 +36,7 @@ def createStatus(event):
         status_message = event["queryStringParameters"]["status"]
         try:
             db = access.Access_Db()
-            db.createStatus(status_message)
-            return status.success()
+            return db.createStatus(status_message)
         except ValueError:
             print("Status was not provided")
             return status.failure_parameters()   

@@ -18,3 +18,9 @@ def failure_authorization():
         'statusCode': 401,
         'body': json.dumps('Authorization failure')
     }
+
+def failure_db():
+    return {
+        'statusCode': 403,
+        'body': json.dumps('Forbidden request')
+    }
