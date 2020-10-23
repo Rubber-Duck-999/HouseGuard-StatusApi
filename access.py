@@ -37,6 +37,7 @@ class Access_Db():
             return status.success()
         else:
             return status.failure_db()
+            
 
     def getStatus(self, status_request):
         print("Creating query for getting status record")
