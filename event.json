@@ -7,15 +7,11 @@
   "region": "us-east-1",
   "resources": ["arn:aws:events:us-east-1:123456789012:rule/ExampleRule"],
   "queryStringParameters": {
-    "status": {
-        "alarmStatus": "ON",
-        "memoryLeft": "20",
-        "devicesActive": "5",
-        "escConnected": "2020/09/10-14:00:00",
-        "motionDetected": "2020/09/10-14:00:00",
-        "accessGranted": "2020/09/10-14:00:00",
-        "accessBlocked": "2020/09/10-14:00:00",
-        "lastUser": "2020/09/10-14:00:00"
+    "user": {
+      "email": "run@naver.com",
+      "firstName": "simon",
+      "lastName": "crowther",
+      "phone": "3567482"
     }
   },
   "httpMethod": "POST",

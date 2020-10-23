@@ -10,18 +10,18 @@ def handler(event, context):
         method = event["httpMethod"]
         if "GET" in method:
             print("Get Request")
-            return getStatus(event)
+            return getUserPreferences(event)
         elif "POST" in method:
             print("Post Request")
-            return createStatus(event)
+            return createUser(event)
 
-def getStatus(event):
-    if 'queryStringParameters' in event and 'status_request' in event["queryStringParameters"]:
+def getUserPreferences(event):
+    if 'queryStringParameters' in event and 'preferences' in event["queryStringParameters"]:
         # Check we have parameters
-        status_request = event["queryStringParameters"]["status_request"]
+        request = event["queryStringParameters"]["preferences"]
         try:
             db = access.Access_Db()
-            db.getStatus(status_request)
+            db.getUserPreferences(request)
             return status.success()
         except ValueError:
             print("Status was not provided")
@@ -30,13 +30,13 @@ def getStatus(event):
         return status.failure_parameters()
 
 
-def createStatus(event):
-    if 'queryStringParameters' in event and 'status' in event["queryStringParameters"]:
+def createUser(event):
+    if 'queryStringParameters' in event and 'user' in event["queryStringParameters"]:
         # Check we have parameters
-        status_message = event["queryStringParameters"]["status"]
+        message = event["queryStringParameters"]["user"]
         try:
             db = access.Access_Db()
-            return db.createStatus(status_message)
+            return db.createUser(message)
         except ValueError:
             print("Status was not provided")
             return status.failure_parameters()   

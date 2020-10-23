@@ -1,10 +1,10 @@
 region: eu-west-2
 
-function_name: house-guard-status-api
+function_name: seoulian-user-api
 handler: service.handler
-description: Status CRUD Operator
+description: User CRUD Operator
 runtime: python3.8
-role: service-role/house-guard-status-api-role-1k30n614
+role: service-role/seoulian-user-api-role-2nl3eeut
 
 # S3 upload requires appropriate role with s3:PutObject permission
 # (ex. basic_s3_upload), a destination bucket, and the key prefix
