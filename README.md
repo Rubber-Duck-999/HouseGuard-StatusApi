@@ -1,9 +1,7 @@
-# HouseGuard-StatusApi
+# HouseGuard-Status-Api
 
-![Go](https://github.com/Rubber-Duck-999/HouseGuard-FaultHandler/workflows/Go/badge.svg)
-
-HouseGuard-StatusApi is the Python component that is part of the HouseGuard solution. 
-It's role to respond to requests on AWS to perform CRUD operations on the status db.
+HouseGuard-Status-Api is the Python component that is part of the HousegUard solution. 
+It's role to respond to requests on AWS to perform CRUD operations on the houseguard db.
 
 ## Installation
 
