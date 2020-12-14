@@ -22,13 +22,20 @@ class AlarmEventModel():
 
 
 
-    def create_alarm_event(self, event):
+    def create_alarm_event(self, user, state):
         try:
-            
+            self.conn = pymysql.connect(
+                host=self.rds_host,
+                user=self.name,
+                passwd=self.password,
+                port=int(self.port),
+                db=self.db_name,
+                connect_timeout=5
+            )
             cursor = self.conn.cursor()
             
             sql = "INSERT INTO `alarm_event` (`user`, `state`) VALUES (%s, %s)"
-            insert_tuple = (event.user, event.state)
+            insert_tuple = (user, state)
             cursor.execute(sql, insert_tuple)
 
             # connection is not autocommit by default. So you must commit to save
@@ -39,6 +46,7 @@ class AlarmEventModel():
             
         except pymysql.MySQLError as e:
             self.error = e
+            print(e)
         else:
             self.conn.close()
 
@@ -66,6 +74,7 @@ class AlarmEventModel():
             return row
         except pymysql.MySQLError as e:
             self.error = e
+            print(e)
             return ""
         else:
             self.conn.close()
