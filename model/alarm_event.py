@@ -1,6 +1,5 @@
 from status.message import failure_db
-import pymysql
-import os
+import pymysql, json, os
 
 class AlarmEventModel():
 
@@ -58,12 +57,13 @@ class AlarmEventModel():
                 passwd=self.password,
                 port=int(self.port),
                 db=self.db_name,
-                connect_timeout=5
+                connect_timeout=5,
+                cursorclass=pymysql.cursors.DictCursor
             )
             cursor = self.conn.cursor()
-            cursor.execute("SELECT * FROM alarm_event ORDER BY event_id DESC LIMIT 1")
-            row = cursor.fetchone()
-            print(row)
+            cursor.execute("SELECT * FROM alarm_event ORDER BY event_id ASC")
+            columns=[x[0] for x in cursor.description]
+            events = cursor.fetchall()
 
             # connection is not autocommit by default. So you must commit to save
             # your changes.
@@ -71,7 +71,7 @@ class AlarmEventModel():
 
             cursor.close()
             
-            return row
+            return events
         except pymysql.MySQLError as e:
             self.error = e
             print(e)

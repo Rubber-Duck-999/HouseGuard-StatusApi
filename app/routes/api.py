@@ -4,6 +4,7 @@ from flask_restful import Resource, Api, reqparse
 import json
 from middleware.validate import validate_alarm_event, DateTimeEncoder
 from model.alarm_event import AlarmEventModel
+import datetime
 
 api_bp = Blueprint('api', __name__)
 api = Api(api_bp)
@@ -15,14 +16,18 @@ TODOS = {
 
 parser = reqparse.RequestParser()
 
+def datetime_handler(x):
+    if isinstance(x, datetime.datetime):
+        return x.isoformat()
+    raise TypeError("Unknown type")
+
 class AlarmEventAPI(Resource):
 
     def get(self):
 
         model = AlarmEventModel()
-        event = model.get_alarm_event()
-        response = json.dumps(event, cls=DateTimeEncoder)
-        return response, 200
+        events = model.get_alarm_event()
+        return json.dumps(events, cls=DateTimeEncoder)
 
     def post(self):
         """
