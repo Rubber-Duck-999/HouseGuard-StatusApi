@@ -1,80 +1,26 @@
-from status.message import failure_db
-import pymysql, json, os
+import pymysql, json
+from model.sql import Connection
+
+
 
 class AlarmEventModel():
 
-
-    def __init__(self):
-        self.error = ""
-
-        try:
-            self.rds_host = os.environ['RDS']
-            self.name = os.environ['NAME']
-            self.password = os.environ['PASSWORD']
-            self.db_name = os.environ['DB']
-            self.port = os.environ['PORT_NUMBER']
-            print("Connecting to db")
-
-        except pymysql.MySQLError as e:
-            print(e)
-            self.invalid_conn = True
-
-
-
     def create_alarm_event(self, user, state):
-        try:
-            self.conn = pymysql.connect(
-                host=self.rds_host,
-                user=self.name,
-                passwd=self.password,
-                port=int(self.port),
-                db=self.db_name,
-                connect_timeout=5
-            )
-            cursor = self.conn.cursor()
-            
-            sql = "INSERT INTO `alarm_event` (`user`, `state`) VALUES (%s, %s)"
-            insert_tuple = (user, state)
-            cursor.execute(sql, insert_tuple)
+        sql = "INSERT INTO `alarm_event` (`user`, `state`) VALUES (%s, %s)"
+        values = (user, state)
+        conn = Connection()
+        conn.create(sql, values)
 
-            # connection is not autocommit by default. So you must commit to save
-            # your changes.
-            self.conn.commit()
-
-            cursor.close()
-            
-        except pymysql.MySQLError as e:
-            self.error = e
-            print(e)
-        else:
-            self.conn.close()
 
     def get_alarm_event(self):
-        try:
-            self.conn = pymysql.connect(
-                host=self.rds_host,
-                user=self.name,
-                passwd=self.password,
-                port=int(self.port),
-                db=self.db_name,
-                connect_timeout=5,
-                cursorclass=pymysql.cursors.DictCursor
-            )
-            cursor = self.conn.cursor()
-            cursor.execute("SELECT * FROM alarm_event ORDER BY event_id ASC")
-            columns=[x[0] for x in cursor.description]
-            events = cursor.fetchall()
+        sql = "SELECT * FROM alarm_event ORDER BY event_id ASC LIMIT 5"
+        conn = Connection()
+        events = conn.get(sql)
+        for event in events:
+            event['created_time'] = event['created_time'].isoformat()
 
-            # connection is not autocommit by default. So you must commit to save
-            # your changes.
-            self.conn.commit()
-
-            cursor.close()
-            
-            return events
-        except pymysql.MySQLError as e:
-            self.error = e
-            print(e)
-            return ""
-        else:
-            self.conn.close()
+        data = {
+            "length": len(events),
+            "events": events
+        }
+        return data

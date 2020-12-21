@@ -7,5 +7,5 @@ create table daily_status(
     total_events INT,
     common_event VARCHAR(10),
     total_faults INT,
-    common_fault INT
+    common_fault VARCHAR(10)
 );
