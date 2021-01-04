@@ -15,12 +15,19 @@ class AlarmEventModel():
     def get_alarm_event(self):
         sql = "SELECT * FROM alarm_event ORDER BY event_id ASC LIMIT 5"
         conn = Connection()
-        events = conn.get(sql)
-        for event in events:
-            event['created_time'] = event['created_time'].isoformat()
+        fail, events = conn.get(sql)
+        data = ''
+        if not fail:
+            for event in events:
+                event['created_time'] = event['created_time'].isoformat()
 
-        data = {
-            "length": len(events),
-            "events": events
-        }
+            data = {
+                "length": len(events),
+                "events": events
+            }
+        else:
+            data = {
+                "length": 0,
+                "events": ''
+            }
         return data

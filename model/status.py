@@ -12,15 +12,22 @@ class StatusModel():
     def get_status(self):
         sql = "SELECT * FROM status ORDER BY status_id ASC limit 5"
         conn = Connection()
-        statuses = conn.get(sql)
-        for status in statuses:
-            status['created_date']    = status['created_date'].isoformat()
-            status['motion_detected'] = status['motion_detected'].isoformat()
-            status['access_granted']  = status['access_granted'].isoformat()
-            status['access_denied']   = status['access_denied'].isoformat()
-            
-        data = {
-            "length": len(statuses),
-            "status": statuses
-        }
+        fail, statuses = conn.get(sql)
+        data = ''
+        if not fail:
+            for status in statuses:
+                status['created_date']    = status['created_date'].isoformat()
+                status['motion_detected'] = status['motion_detected'].isoformat()
+                status['access_granted']  = status['access_granted'].isoformat()
+                status['access_denied']   = status['access_denied'].isoformat()
+                
+            data = {
+                "length": len(statuses),
+                "status": statuses
+            }
+        else:
+            data = {
+                "length": 0,
+                "status": ''
+            }
         return data

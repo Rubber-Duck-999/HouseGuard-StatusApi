@@ -11,12 +11,10 @@ import datetime
 api_bp = Blueprint('api', __name__)
 api = Api(api_bp)
 
-TODOS = {
-    'event': {'task': 'build an API'}
-}
 
-
-parser = reqparse.RequestParser(bundle_errors=True)
+parser_one = reqparse.RequestParser(bundle_errors=True)
+parser_two = reqparse.RequestParser(bundle_errors=True)
+parser_three = reqparse.RequestParser(bundle_errors=True)
 
 class AlarmEventAPI(Resource):
 
@@ -31,9 +29,9 @@ class AlarmEventAPI(Resource):
         Uses the houseguard db to make a alarm event
         :return:
         """
-        parser.add_argument('user', type=str, required=True)
-        parser.add_argument('state', choices=['ON', 'OFF'], required=True)
-        args = parser.parse_args()
+        parser_one.add_argument('user', type=str, required=True)
+        parser_one.add_argument('state', choices=['ON', 'OFF'], required=True)
+        args = parser_one.parse_args()
     
         # Adding event to db
         model = AlarmEventModel()
@@ -42,7 +40,9 @@ class AlarmEventAPI(Resource):
         valid, user, state = validate_alarm_event(user, state)
         if valid:
             model.create_alarm_event(user, state)
-        return 'Complete', 200
+            return 'Incomplete', 400
+        else:
+            return 'Complete', 200
 
 class StatusAPI(Resource):
 
@@ -57,15 +57,15 @@ class StatusAPI(Resource):
         Uses the houseguard db to make a status
         :return:
         """
-        parser.add_argument('motion_detected', type=str, required=True)
-        parser.add_argument('access_granted', type=str, required=True)
-        parser.add_argument('access_denied', type=str, required=True)
-        parser.add_argument('last_fault', type=str, required=True)
-        parser.add_argument('last_user', type=str, required=True)
-        parser.add_argument('cpu_temp', type=int, required=True)
-        parser.add_argument('cpu_usage', type=int, required=True)
-        parser.add_argument('memory', type=int, required=True)
-        args = parser.parse_args()
+        parser_two.add_argument('motion_detected', type=str, required=True)
+        parser_two.add_argument('access_granted', type=str, required=True)
+        parser_two.add_argument('access_denied', type=str, required=True)
+        parser_two.add_argument('last_fault', type=str, required=True)
+        parser_two.add_argument('last_user', type=str, required=True)
+        parser_two.add_argument('cpu_temp', type=int, required=True)
+        parser_two.add_argument('cpu_usage', type=int, required=True)
+        parser_two.add_argument('memory', type=int, required=True)
+        args = parser_two.parse_args()
 
         # Adding event to db
         status = Status(args['motion_detected'], 
@@ -89,15 +89,15 @@ class DailyStatusAPI(Resource):
         Uses the houseguard db to make a daily status
         :return:
         """
-        parser.add_argument('created_date', type=str, required=True)
-        parser.add_argument('allowed_devices', type=int, required=True)
-        parser.add_argument('blocked_devices', type=int, required=True)
-        parser.add_argument('unknown_devices', type=int, required=True)
-        parser.add_argument('total_events', type=int, required=True)
-        parser.add_argument('common_event', type=str, required=True)
-        parser.add_argument('total_faults', type=int, required=True)
-        parser.add_argument('common_fault', type=str, required=True)
-        args = parser.parse_args()
+        parser_three.add_argument('created_date', type=str, required=True)
+        parser_three.add_argument('allowed_devices', type=int, required=True)
+        parser_three.add_argument('blocked_devices', type=int, required=True)
+        parser_three.add_argument('unknown_devices', type=int, required=True)
+        parser_three.add_argument('total_events', type=int, required=True)
+        parser_three.add_argument('common_event', type=str, required=True)
+        parser_three.add_argument('total_faults', type=int, required=True)
+        parser_three.add_argument('common_fault', type=str, required=True)
+        args = parser_three.parse_args()
 
         # Adding event to db
         status = DailyStatus(args['created_date'], 

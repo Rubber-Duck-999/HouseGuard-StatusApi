@@ -24,7 +24,7 @@ class Connection():
                 connect_timeout=5
             )
             cursor = self.conn.cursor()
-            
+
             cursor.execute(sql, values)
 
             # connection is not autocommit by default. So you must commit to save
@@ -59,17 +59,22 @@ class Connection():
                 cursor.execute(sql)
             columns=[x[0] for x in cursor.description]
             data = cursor.fetchall()
-
+            fail = False
+            if data is None:
+                prit('Data is empty')
+                fail = True
             # connection is not autocommit by default. So you must commit to save
             # your changes.
             self.conn.commit()
 
             cursor.close()
-            return data
+            return fail, data
         except pymysql.MySQLError as e:
             self.error = e
             print(e)
+            return True, ''
         except:
             print("Unexpected error:", sys.exc_info()[0])
+            return True, ''
         else:
             self.conn.close()

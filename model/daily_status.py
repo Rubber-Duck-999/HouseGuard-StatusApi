@@ -15,12 +15,19 @@ class DailyStatusModel():
     def get_status(self):
         sql = "SELECT * FROM daily_status ORDER BY daily_status_id ASC limit 5"
         conn = Connection()
-        statuses = conn.get(sql)
-        for status in statuses:
-            status['created_date'] = status['created_date'].isoformat()
-        
-        data = {
-            "length": len(statuses),
-            "status": statuses
-        }
+        fail, statuses = conn.get(sql)
+        data = ''
+        if not fail:
+            for status in statuses:
+                status['created_date'] = status['created_date'].isoformat()
+            
+            data = {
+                "length": len(statuses),
+                "status": statuses
+            }
+        else:
+            data = {
+                "length": 0,
+                "status": ''
+            }
         return data
