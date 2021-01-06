@@ -40,9 +40,9 @@ class AlarmEventAPI(Resource):
         valid, user, state = validate_alarm_event(user, state)
         if valid:
             model.create_alarm_event(user, state)
-            return 'Incomplete', 400
-        else:
             return 'Complete', 200
+        else:
+            return 'Incomplete', 400
 
 class StatusAPI(Resource):
 
