@@ -9,7 +9,6 @@ class Connection():
             self.password = os.environ['PASSWORD']
             self.db_name = os.environ['DB']
             self.port = os.environ['PORT_NUMBER']
-
         except pymysql.MySQLError as e:
             print(e)
 
@@ -21,7 +20,7 @@ class Connection():
                 passwd=self.password,
                 port=int(self.port),
                 db=self.db_name,
-                connect_timeout=5
+                connect_timeout=15
             )
             cursor = self.conn.cursor()
 
@@ -61,7 +60,7 @@ class Connection():
             data = cursor.fetchall()
             fail = False
             if data is None:
-                prit('Data is empty')
+                print('Data is empty')
                 fail = True
             # connection is not autocommit by default. So you must commit to save
             # your changes.
