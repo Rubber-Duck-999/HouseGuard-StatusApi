@@ -1,11 +1,16 @@
 # HouseGuard-Status-Api
 
-HouseGuard-Status-Api is the Python component that is part of the HousegUard solution. 
+HouseGuard-Status-Api is the Python component that is part of the Houseguard solution. 
 It's role to respond to requests on AWS to perform CRUD operations on the houseguard db.
 
 ## Installation
 
 This can be installed on multiple OS
+
+```
+pipenv shell
+python3 run.py
+```
 
 
 ## Contributing
