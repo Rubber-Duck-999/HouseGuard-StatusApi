@@ -1,6 +1,7 @@
 
 from flask import request, app, Blueprint, Response, jsonify
 from flask_restful import Resource, Api, reqparse
+from flask_restful.utils import cors
 import json, datetime
 from app.routes.alarm_event_api import AlarmEventAPI
 from app.routes.access_api      import AccessAPI
@@ -11,6 +12,7 @@ from app.routes.motion_api      import MotionAPI
 
 api_bp = Blueprint('api', __name__)
 api = Api(api_bp)
+api.decorators=[cors.crossdomain(origin='*')]
 
 api.add_resource(AlarmEventAPI, "/alarmEvent")
 api.add_resource(AccessAPI, "/access")
