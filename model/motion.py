@@ -19,7 +19,7 @@ class MotionModel():
         data = ''
         if not fail:
             for event in events:
-                event['created_time'] = event['created_time'].isoformat()
+                event['created_time'] = event['created_time']
             
             data = {
                 "length": len(events),

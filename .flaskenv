@@ -1,2 +1,2 @@
 FLASK_APP=run.py
-FLASK_ENV=dev
+FLASK_ENV=stage
