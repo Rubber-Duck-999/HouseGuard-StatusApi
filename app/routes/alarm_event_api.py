@@ -7,13 +7,15 @@ parser = reqparse.RequestParser(bundle_errors=True)
 
 class AlarmEventAPI(Resource):
 
-    def get(self):
+    @staticmethod
+    def get():
 
         model = AlarmEventModel()
         events = model.get_alarm_event()
         return events, 200
 
-    def post(self):
+    @staticmethod
+    def post():
         """
         Uses the houseguard db to make a alarm event
         :return:

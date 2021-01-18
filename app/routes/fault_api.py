@@ -7,13 +7,15 @@ parser = reqparse.RequestParser(bundle_errors=True)
 
 class FaultAPI(Resource):
 
-    def get(self):
+    @staticmethod
+    def get():
 
         model = FaultModel()
         fault = model.get_fault()
         return fault, 200
 
-    def post(self):
+    @staticmethod
+    def post():
         """
         Uses the houseguard db to make a fault
         :return:

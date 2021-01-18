@@ -6,13 +6,15 @@ parser = reqparse.RequestParser(bundle_errors=True)
 
 class HardwareAPI(Resource):
 
-    def get(self):
+    @staticmethod
+    def get():
 
         model = HardwareModel()
         hardware = model.get_hardware()
         return hardware, 200
 
-    def post(self):
+    @staticmethod
+    def post():
         """
         Uses the houseguard db to make a hardware
         :return:

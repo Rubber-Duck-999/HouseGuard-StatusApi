@@ -7,13 +7,15 @@ parser = reqparse.RequestParser(bundle_errors=True)
 
 class AccessAPI(Resource):
 
-    def get(self):
+    @staticmethod
+    def get():
 
         model = AccessModel()
         access = model.get_access()
         return access, 200
 
-    def post(self):
+    @staticmethod
+    def post():
         """
         Uses the houseguard db to make a access
         :return:

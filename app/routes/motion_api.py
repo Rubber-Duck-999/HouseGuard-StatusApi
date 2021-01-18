@@ -4,13 +4,15 @@ from model.motion import MotionModel
 
 class MotionAPI(Resource):
 
-    def get(self):
+    @staticmethod
+    def get():
 
         model = MotionModel()
         motion = model.get_motion()
         return motion, 200
 
-    def post(self):
+    @staticmethod
+    def post():
         """
         Uses the houseguard db to make a motion
         :return:

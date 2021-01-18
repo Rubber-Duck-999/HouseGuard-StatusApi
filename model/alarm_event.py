@@ -5,14 +5,16 @@ from model.sql import Connection
 
 class AlarmEventModel():
 
-    def create_alarm_event(self, user, state):
+    @staticmethod
+    def create_alarm_event(user, state):
         sql = "INSERT INTO `alarm_event` (`user`, `state`) VALUES (%s, %s)"
         values = (user, state)
         conn = Connection()
         conn.create(sql, values)
 
 
-    def get_alarm_event(self):
+    @staticmethod
+    def get_alarm_event():
         sql = "SELECT * FROM alarm_event ORDER BY event_id ASC LIMIT 5"
         conn = Connection()
         fail, events = conn.get(sql)

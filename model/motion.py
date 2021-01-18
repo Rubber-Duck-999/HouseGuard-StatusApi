@@ -3,7 +3,8 @@ from model.sql import Connection
 from datetime import datetime
 class MotionModel():
 
-    def create_motion(self):
+    @staticmethod
+    def create_motion():
         now = datetime.now()
         timestamp = datetime.timestamp(now)
             
@@ -12,7 +13,8 @@ class MotionModel():
         conn = Connection()
         conn.create(sql, values)
 
-    def get_motion(self):
+    @staticmethod
+    def get_motion():
         sql = "SELECT * FROM motion ORDER BY motion_id ASC limit 5"
         conn = Connection()
         fail, events = conn.get(sql)

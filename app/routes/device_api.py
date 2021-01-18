@@ -6,13 +6,15 @@ parser = reqparse.RequestParser(bundle_errors=True)
 
 class DeviceAPI(Resource):
 
-    def get(self):
+    @staticmethod
+    def get():
 
         model = DeviceModel()
         device = model.get_device()
         return device, 200
 
-    def post(self):
+    @staticmethod
+    def post():
         """
         Uses the houseguard db to make a device
         :return:

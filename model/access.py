@@ -3,14 +3,16 @@ from model.sql import Connection
 
 class AccessModel():
 
-    def create_access(self, granted, denied, user):
+    @staticmethod
+    def create_access(granted, denied, user):
         sql = "INSERT INTO `access` (`access_granted`, `access_denied`, `last_user`) VALUES (%s, %s, %s)"
         values = (granted, denied, user)
         conn = Connection()
         conn.create(sql, values)
 
 
-    def get_access(self):
+    @staticmethod
+    def get_access():
         sql = "SELECT * FROM access ORDER BY access_id ASC LIMIT 5"
         conn = Connection()
         fail, events = conn.get(sql)

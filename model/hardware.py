@@ -3,14 +3,16 @@ from model.sql import Connection
 
 class HardwareModel():
 
-    def create_hardware(self, temp, usage, memory):
+    @staticmethod
+    def create_hardware(temp, usage, memory):
         sql = "INSERT INTO `hardware` (`cpu_temp`, `cpu_usage`, `memory`) VALUES (%s, %s, %s)"
         values = (temp, usage, memory)
         conn = Connection()
         conn.create(sql, values)
 
 
-    def get_hardware(self):
+    @staticmethod
+    def get_hardware():
         sql = "SELECT * FROM hardware ORDER BY hardware_id ASC LIMIT 5"
         conn = Connection()
         fail, events = conn.get(sql)

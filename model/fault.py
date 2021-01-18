@@ -3,14 +3,16 @@ from model.sql import Connection
 
 class FaultModel():
 
-    def create_fault(self, name):
+    @staticmethod
+    def create_fault(name):
         sql = "INSERT INTO `fault` (`name`) VALUES (%s)"
         values = (name)
         conn = Connection()
         conn.create(sql, values)
 
 
-    def get_fault(self):
+    @staticmethod
+    def get_fault():
         sql = "SELECT * FROM fault ORDER BY fault_id ASC LIMIT 5"
         conn = Connection()
         fail, events = conn.get(sql)
