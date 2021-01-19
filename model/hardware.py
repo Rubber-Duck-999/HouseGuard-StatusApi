@@ -11,7 +11,7 @@ class HardwareModel():
 
 
     def get_hardware(self):
-        sql = "SELECT * FROM hardware ORDER BY hardware_id ASC LIMIT 5"
+        sql = "SELECT * FROM hardware ORDER BY hardware_id ASC LIMIT 1"
         conn = Connection()
         fail, events = conn.get(sql)
         data = ''

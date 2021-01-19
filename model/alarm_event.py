@@ -13,7 +13,7 @@ class AlarmEventModel():
 
 
     def get_alarm_event(self):
-        sql = "SELECT * FROM alarm_event ORDER BY event_id ASC LIMIT 5"
+        sql = "SELECT * FROM alarm_event ORDER BY event_id ASC LIMIT 1"
         conn = Connection()
         fail, events = conn.get(sql)
         data = ''

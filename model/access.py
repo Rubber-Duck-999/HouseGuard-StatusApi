@@ -11,7 +11,7 @@ class AccessModel():
 
 
     def get_access(self):
-        sql = "SELECT * FROM access ORDER BY access_id ASC LIMIT 5"
+        sql = "SELECT * FROM access ORDER BY access_id ASC LIMIT 1"
         conn = Connection()
         fail, events = conn.get(sql)
         data = ''

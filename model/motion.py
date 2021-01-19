@@ -13,7 +13,7 @@ class MotionModel():
         conn.create(sql, values)
 
     def get_motion(self):
-        sql = "SELECT * FROM motion ORDER BY motion_id ASC limit 5"
+        sql = "SELECT * FROM motion ORDER BY motion_id ASC limit 1"
         conn = Connection()
         fail, events = conn.get(sql)
         data = ''

@@ -11,7 +11,7 @@ class FaultModel():
 
 
     def get_fault(self):
-        sql = "SELECT * FROM fault ORDER BY fault_id ASC LIMIT 5"
+        sql = "SELECT * FROM fault ORDER BY fault_id ASC LIMIT 1"
         conn = Connection()
         fail, events = conn.get(sql)
         data = ''

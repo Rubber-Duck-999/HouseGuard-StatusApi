@@ -5,13 +5,13 @@ class DeviceModel():
 
     def create_device(self, allowed, blocked, unknown):
         sql = "INSERT INTO `device` (`allowed`, `blocked`, `unknown`) VALUES (%s, %s, %s)"
-        values = (device.allowed, device.blocked, device.unknown)
+        values = (allowed, blocked, unknown)
         conn = Connection()
         conn.create(sql, values)
 
 
     def get_device(self):
-        sql = "SELECT * FROM device ORDER BY device_id ASC LIMIT 5"
+        sql = "SELECT * FROM device ORDER BY device_id ASC LIMIT 1"
         conn = Connection()
         fail, events = conn.get(sql)
         data = ''
