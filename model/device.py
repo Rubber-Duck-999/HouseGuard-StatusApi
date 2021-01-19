@@ -4,7 +4,7 @@ from model.sql import Connection
 class DeviceModel():
 
     def create_device(self, allowed, blocked, unknown):
-        sql = "INSERT INTO `device` (`allowed`, `blocked`, `unknown`) VALUES (%s, %s, %s)"
+        sql = "INSERT INTO `device` (`allowed_devices`, `blocked_devices`, `unknown_devices`) VALUES (%s, %s, %s)"
         values = (allowed, blocked, unknown)
         conn = Connection()
         conn.create(sql, values)
@@ -17,7 +17,7 @@ class DeviceModel():
         data = ''
         if not fail:
             for event in events:
-                event['created_time'] = event['created_time'].isoformat()
+                event['created_date'] = event['created_date'].isoformat()
 
             data = {
                 "length": len(events),
